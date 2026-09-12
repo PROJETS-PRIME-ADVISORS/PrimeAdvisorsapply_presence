@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pointage de présence — PRIME ADVISORS SB, Inc.</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="card">
+    <img class="brand" src="{{ url_for('static', filename='logo.jpg') }}" alt="PRIME ADVISORS SB, Inc.">
+    <p class="clock" id="clock" aria-live="off"></p>
+
+    <h1>Pointage de présence</h1>
+    <p class="subtitle">Indiquez votre nom pour enregistrer votre arrivée. Scannez à nouveau ce même code en fin de journée pour enregistrer votre départ.</p>
+
+    <form id="pointage-form">
+      <div>
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" name="nom" autocomplete="family-name" required>
+      </div>
+      <div>
+        <label for="prenom">Prénom</label>
+        <input type="text" id="prenom" name="prenom" autocomplete="given-name" required>
+      </div>
+      <button type="submit">Pointer</button>
+    </form>
+
+    <p id="result" class="result hidden" role="status"></p>
+  </main>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration — PRIME ADVISORS SB, Inc.</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="card admin-card">
+    <section id="login-view">
+      <img class="brand" src="{{ url_for('static', filename='logo.jpg') }}" alt="PRIME ADVISORS SB, Inc.">
+      <h1>Administration</h1>
+      <p class="subtitle">Accès réservé à la gestion des présences.</p>
+      <form id="login-form">
+        <div>
+          <label for="password">Mot de passe</label>
+          <input type="password" id="password" required>
+        </div>
+        <button type="submit">Se connecter</button>
+      </form>
+      <p id="login-error" class="result error hidden" role="status"></p>
+    </section>
+
+    <section id="dashboard-view" class="hidden">
+      <div class="admin-header">
+        <div class="admin-title">
+          <img class="brand" src="{{ url_for('static', filename='logo.jpg') }}" alt="PRIME ADVISORS SB, Inc.">
+          <h1>Pointages</h1>
+        </div>
+        <button id="logout-btn" class="secondary">Se déconnecter</button>
+      </div>
+
+      <div class="admin-controls">
+        <input type="date" id="date-filter">
+        <button id="filter-btn" class="secondary">Filtrer</button>
+        <button id="reset-btn" class="secondary">Tout afficher</button>
+        <a id="export-link" href="/api/export"><button type="button">Exporter en CSV</button></a>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th><th>Prénom</th><th>Date</th><th>Arrivée</th><th>Départ</th><th>Motif</th><th>Origine</th>
+          </tr>
+        </thead>
+        <tbody id="table-body"></tbody>
+      </table>
+
+      <section class="import-section">
+        <div class="import-header">
+          <h2>Importer des pointages antérieurs</h2>
+          <button id="toggle-import-btn" class="ghost">Ajouter des lignes</button>
+        </div>
+        <p class="import-hint">
+          Pour reporter les pointages tenus sur registre papier depuis le 07/09/2026. Une fois importée,
+          une ligne est définitive : elle n'est ni modifiable ni supprimable depuis cette page.
+        </p>
+
+        <div id="import-panel" class="hidden">
+          <table class="import-table">
+            <thead>
+              <tr>
+                <th>Nom *</th><th>Prénom *</th><th>Date *</th><th>Arrivée *</th><th>Départ</th><th>Motif</th>
+              </tr>
+            </thead>
+            <tbody id="import-rows"></tbody>
+          </table>
+
+          <div class="import-actions">
+            <button type="button" id="add-row-btn" class="secondary">+ Ajouter une ligne</button>
+            <button type="button" id="submit-import-btn">Enregistrer l'import</button>
+          </div>
+
+          <div id="import-feedback" class="import-feedback"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script src="{{ url_for('static', filename='admin.js') }}"></script>
+</body>
+</html>
