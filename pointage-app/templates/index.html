@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#080d2e">
   <title>Pointage de présence — PRIME ADVISORS SB, Inc.</title>
+  <link rel="icon" href="{{ url_for('static', filename='logo.jpg') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -17,16 +23,21 @@
     <form id="pointage-form">
       <div>
         <label for="nom">Nom</label>
-        <input type="text" id="nom" name="nom" autocomplete="family-name" required>
+        <input type="text" id="nom" name="nom" autocomplete="family-name" autocapitalize="characters" autocorrect="off" spellcheck="false" maxlength="80" required>
       </div>
       <div>
         <label for="prenom">Prénom</label>
-        <input type="text" id="prenom" name="prenom" autocomplete="given-name" required>
+        <input type="text" id="prenom" name="prenom" autocomplete="given-name" autocapitalize="words" autocorrect="off" spellcheck="false" maxlength="80" required>
       </div>
+      <label class="checkbox">
+        <input type="checkbox" id="memoriser" checked>
+        Mémoriser mon nom sur ce téléphone
+      </label>
       <button type="submit">Pointer</button>
     </form>
 
     <p id="result" class="result hidden" role="status"></p>
+    <noscript><p class="result error">JavaScript doit être activé pour pointer.</p></noscript>
   </main>
   <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
