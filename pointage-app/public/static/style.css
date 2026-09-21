@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap');
-
 :root {
+  color-scheme: dark;
+
   --navy: #080d2e;
   --navy-surface: #131a45;
   --navy-surface-raised: #1c2456;
@@ -36,6 +36,10 @@ body {
 @media (max-width: 480px) {
   body {
     padding: 6vh 16px;
+  }
+
+  .card {
+    padding: 24px 20px;
   }
 }
 
@@ -94,7 +98,8 @@ label {
 
 input[type="text"],
 input[type="password"],
-input[type="date"] {
+input[type="date"],
+input[type="time"] {
   width: 100%;
   font-family: var(--font-body);
   font-size: 16px;
@@ -114,7 +119,33 @@ input:focus {
   outline-offset: 1px;
 }
 
-button {
+label.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+label.checkbox input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--gold);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+button,
+.button {
+  display: inline-block;
   font-family: var(--font-body);
   font-weight: 600;
   font-size: 15px;
@@ -123,16 +154,24 @@ button {
   border: none;
   background: var(--gold);
   color: var(--navy);
+  text-decoration: none;
   cursor: pointer;
 }
 
-button:hover {
+button:hover,
+.button:hover {
   background: #c99a5f;
 }
 
 button:disabled {
   opacity: 0.6;
   cursor: default;
+}
+
+button:focus-visible,
+.button:focus-visible {
+  outline: 2px solid var(--white);
+  outline-offset: 2px;
 }
 
 button.secondary {
@@ -193,6 +232,8 @@ button.ghost:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
   margin-bottom: 24px;
 }
 
@@ -214,8 +255,9 @@ button.ghost:hover {
 .admin-controls {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .admin-controls input[type="date"] {
@@ -223,15 +265,32 @@ button.ghost:hover {
   flex: 1 1 160px;
 }
 
-.admin-controls button {
+.admin-controls button,
+.admin-controls .button {
   flex: 0 0 auto;
   padding: 10px 14px;
   font-size: 14px;
 }
 
 #export-link {
-  text-decoration: none;
   margin-left: auto;
+}
+
+@media (max-width: 480px) {
+  #export-link {
+    margin-left: 0;
+  }
+}
+
+.table-summary {
+  color: var(--slate);
+  font-size: 13px;
+  margin: 0 0 12px;
+  min-height: 18px;
+}
+
+.table-wrap {
+  overflow-x: auto;
 }
 
 table {
@@ -240,12 +299,17 @@ table {
   font-size: 14px;
 }
 
+.table-wrap table {
+  min-width: 620px;
+}
+
 thead th {
   text-align: left;
   font-weight: 500;
   color: var(--slate);
   border-bottom: 1px solid var(--border);
   padding: 8px 6px;
+  white-space: nowrap;
 }
 
 tbody td {
@@ -262,6 +326,13 @@ tbody td.motif-cell {
 
 tbody tr:last-child td {
   border-bottom: none;
+}
+
+td.empty {
+  text-align: center;
+  color: var(--slate);
+  font-family: var(--font-body);
+  padding: 28px 6px;
 }
 
 .badge {
@@ -293,6 +364,8 @@ tbody tr:last-child td {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-bottom: 4px;
 }
 
@@ -318,6 +391,10 @@ tbody tr:last-child td {
   margin-bottom: 12px;
 }
 
+.table-wrap .import-table {
+  min-width: 720px;
+}
+
 .import-table th {
   text-align: left;
   color: var(--slate);
@@ -334,8 +411,13 @@ tbody tr:last-child td {
   font-size: 13px;
 }
 
+.import-table tr.row-error input {
+  border-color: var(--alert);
+}
+
 .import-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 16px;
 }
@@ -343,6 +425,10 @@ tbody tr:last-child td {
 .import-feedback {
   font-size: 13px;
   line-height: 1.6;
+}
+
+.import-feedback p {
+  margin: 0 0 4px;
 }
 
 .import-feedback .ok {

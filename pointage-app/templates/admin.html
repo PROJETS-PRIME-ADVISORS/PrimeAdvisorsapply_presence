@@ -3,7 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#080d2e">
   <title>Administration — PRIME ADVISORS SB, Inc.</title>
+  <link rel="icon" href="{{ url_for('static', filename='logo.jpg') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -15,11 +21,11 @@
       <form id="login-form">
         <div>
           <label for="password">Mot de passe</label>
-          <input type="password" id="password" required>
+          <input type="password" id="password" autocomplete="current-password" required>
         </div>
         <button type="submit">Se connecter</button>
       </form>
-      <p id="login-error" class="result error hidden" role="status"></p>
+      <p id="login-error" class="result error hidden" role="alert"></p>
     </section>
 
     <section id="dashboard-view" class="hidden">
@@ -28,29 +34,34 @@
           <img class="brand" src="{{ url_for('static', filename='logo.jpg') }}" alt="PRIME ADVISORS SB, Inc.">
           <h1>Pointages</h1>
         </div>
-        <button id="logout-btn" class="secondary">Se déconnecter</button>
+        <button type="button" id="logout-btn" class="secondary">Se déconnecter</button>
       </div>
 
       <div class="admin-controls">
+        <label class="visually-hidden" for="date-filter">Date affichée</label>
         <input type="date" id="date-filter">
-        <button id="filter-btn" class="secondary">Filtrer</button>
-        <button id="reset-btn" class="secondary">Tout afficher</button>
-        <a id="export-link" href="/api/export"><button type="button">Exporter en CSV</button></a>
+        <button type="button" id="today-btn" class="secondary">Aujourd'hui</button>
+        <button type="button" id="reset-btn" class="secondary">Tout afficher</button>
+        <a id="export-link" class="button" href="/api/export">Exporter en CSV</a>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Nom</th><th>Prénom</th><th>Date</th><th>Arrivée</th><th>Départ</th><th>Motif</th><th>Origine</th>
-          </tr>
-        </thead>
-        <tbody id="table-body"></tbody>
-      </table>
+      <p id="table-summary" class="table-summary" role="status"></p>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nom</th><th>Prénom</th><th>Date</th><th>Arrivée</th><th>Départ</th><th>Motif</th><th>Origine</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
 
       <section class="import-section">
         <div class="import-header">
           <h2>Importer des pointages antérieurs</h2>
-          <button id="toggle-import-btn" class="ghost">Ajouter des lignes</button>
+          <button type="button" id="toggle-import-btn" class="ghost">Ajouter des lignes</button>
         </div>
         <p class="import-hint">
           Pour reporter les pointages tenus sur registre papier depuis le 07/09/2026. Une fois importée,
@@ -58,21 +69,23 @@
         </p>
 
         <div id="import-panel" class="hidden">
-          <table class="import-table">
-            <thead>
-              <tr>
-                <th>Nom *</th><th>Prénom *</th><th>Date *</th><th>Arrivée *</th><th>Départ</th><th>Motif</th>
-              </tr>
-            </thead>
-            <tbody id="import-rows"></tbody>
-          </table>
+          <div class="table-wrap">
+            <table class="import-table">
+              <thead>
+                <tr>
+                  <th>Nom *</th><th>Prénom *</th><th>Date *</th><th>Arrivée *</th><th>Départ</th><th>Motif</th>
+                </tr>
+              </thead>
+              <tbody id="import-rows"></tbody>
+            </table>
+          </div>
 
           <div class="import-actions">
             <button type="button" id="add-row-btn" class="secondary">+ Ajouter une ligne</button>
             <button type="button" id="submit-import-btn">Enregistrer l'import</button>
           </div>
 
-          <div id="import-feedback" class="import-feedback"></div>
+          <div id="import-feedback" class="import-feedback" role="status"></div>
         </div>
       </section>
     </section>

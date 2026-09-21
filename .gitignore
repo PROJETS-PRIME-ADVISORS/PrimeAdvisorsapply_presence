@@ -9,3 +9,8 @@ venv/
 !.env.example
 pointage.db
 *.db
+
+# Tests et Vercel
+.pytest_cache/
+.vercel/
+.claude/
